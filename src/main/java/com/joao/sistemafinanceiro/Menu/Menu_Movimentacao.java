@@ -1,8 +1,6 @@
 package com.joao.sistemafinanceiro.Menu;
 
-import com.joao.sistemafinanceiro.Model.Banco;
-import com.joao.sistemafinanceiro.Model.DocumentoFiscal;
-import com.joao.sistemafinanceiro.Model.Movimentacao;
+import com.joao.sistemafinanceiro.Model.*;
 import com.joao.sistemafinanceiro.Service.MovimentacaoService;
 
 import java.util.Scanner;
@@ -16,11 +14,12 @@ public class Menu_Movimentacao {
             System.out.println("+--------------------------------------+");
             System.out.println("|           MENU MOVIMENTACAO          |");
             System.out.println("+--------------------------------------+");
-            System.out.printf("| %-36s |\n", "1 - Gerar Movimento");
-            System.out.printf("| %-36s |\n", "2 - Listar Movimentos");
-            System.out.printf("| %-36s |\n", "2 - Consultar Movimento por ID");
-            System.out.printf("| %-36s |\n", "3 - Editar Movimento");
-            System.out.printf("| %-36s |\n", "4 - Remover Movimento");
+            System.out.printf("| %-36s |\n", "1 - Pagar");
+            System.out.printf("| %-36s |\n", "2 - Receber");
+            System.out.printf("| %-36s |\n", "3 - Listar Movimentos");
+            System.out.printf("| %-36s |\n", "4 - Consultar Movimento por ID");
+            System.out.printf("| %-36s |\n", "5 - Editar Movimento");
+            System.out.printf("| %-36s |\n", "6 - Remover Movimento");
             System.out.printf("| %-36s |\n", "0 - Voltar");
             System.out.println("+--------------------------------------+");
 
@@ -32,71 +31,100 @@ public class Menu_Movimentacao {
                 case 1 -> {
                     Movimentacao m = new Movimentacao();
                     Banco b = new Banco();
-                    DocumentoFiscal d = new DocumentoFiscal();
+                    TituloCobranca t = new TituloCobranca();
 
-                    System.out.printf("Agencia do Banco: ");
+                    System.out.print("Agencia do Banco: ");
                     b.setAgencia(scanner.nextLine());
 
-                    System.out.printf("Conta do Banco: ");
+                    System.out.print("Conta do Banco: ");
                     b.setConta(scanner.nextLine());
-
                     m.setBanco(b);
 
-                    System.out.printf("Documento: ");
-                    d.setNumero(scanner.nextLine());
+                    System.out.print("ID do Título de Cobrança: ");
+                    t.setId(scanner.nextInt());
+                    scanner.nextLine();
+                    m.setTituloCobranca(t);
 
-                    m.setDocumento(d);
+                    m.setTipo("RECEBER");
 
-                    System.out.printf("Tipo (PAGAR/RECEBER): ");
-                    m.setTipo(scanner.nextLine());
-
-                    System.out.println("Valor: ");
-                    m.setValor(scanner.nextDouble());
-
-                    System.out.println("Observacao: ");
+                    System.out.print("Observacao: ");
                     m.setObservacao(scanner.nextLine());
 
                     mService.salvar(m);
                 }
-                case 2 -> mService.consultarTodos();
-                case 3 -> {
+
+                case 2 -> {
                     Movimentacao m = new Movimentacao();
                     Banco b = new Banco();
-                    DocumentoFiscal d = new DocumentoFiscal();
+                    TituloCobranca t = new TituloCobranca();
 
-                    System.out.printf("ID: ");
-                    m.setId(scanner.nextInt());
-
-                    System.out.printf("Agencia do Banco: ");
+                    System.out.print("Agencia do Banco: ");
                     b.setAgencia(scanner.nextLine());
 
-                    System.out.printf("Conta do Banco: ");
+                    System.out.print("Conta do Banco: ");
                     b.setConta(scanner.nextLine());
-
                     m.setBanco(b);
 
-                    System.out.printf("Documento: ");
-                    d.setNumero(scanner.nextLine());
+                    System.out.print("ID do Título de Cobrança: ");
+                    t.setId(scanner.nextInt());
+                    scanner.nextLine();
+                    m.setTituloCobranca(t);
 
-                    m.setDocumento(d);
+                    m.setTipo("PAGAR");
 
-                    System.out.printf("Tipo (PAGAR/RECEBER): ");
+                    System.out.print("Observacao: ");
+                    m.setObservacao(scanner.nextLine());
+
+                    mService.salvar(m);
+                }
+
+                case 3 -> mService.consultarTodos();
+
+                case 4 -> {
+                    System.out.print("ID da movimentação: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+                    mService.consultarPorId(id);
+                }
+
+                case 5 -> {
+                    Movimentacao m = new Movimentacao();
+                    Banco b = new Banco();
+                    TituloCobranca t = new TituloCobranca();
+
+                    System.out.print("ID da Movimentação: ");
+                    m.setId(scanner.nextInt());
+                    scanner.nextLine();
+
+                    System.out.print("Agencia do Banco: ");
+                    b.setAgencia(scanner.nextLine());
+
+                    System.out.print("Conta do Banco: ");
+                    b.setConta(scanner.nextLine());
+                    m.setBanco(b);
+
+                    System.out.print("ID do Título de Cobrança: ");
+                    t.setId(scanner.nextInt());
+                    scanner.nextLine();
+                    m.setTituloCobranca(t);
+
+                    System.out.print("Tipo (PAGAR/RECEBER): ");
                     m.setTipo(scanner.nextLine());
 
-                    System.out.println("Valor: ");
-                    m.setValor(scanner.nextDouble());
-
-                    System.out.println("Observacao: ");
+                    System.out.print("Observacao: ");
                     m.setObservacao(scanner.nextLine());
-                }
-                case 4 -> {
-                    System.out.printf("ID: ");
-                    int id = scanner.nextInt();
 
+                    mService.atualizar(m);
+                }
+
+                case 6 -> {
+                    System.out.print("ID: ");
+                    int id = scanner.nextInt();
                     mService.excluir(id);
                 }
+
                 case 0 -> System.out.println("Voltando ao menu principal...");
-                default -> System.out.println("Opcao invalida. ");
+                default -> System.out.println("Opcao invalida.");
             }
         } while (opcao != 0);
     }

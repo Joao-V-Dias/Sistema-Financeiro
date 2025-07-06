@@ -17,12 +17,12 @@ public class DocumentoFiscalDAO {
 
     public void salvar(DocumentoFiscal d) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO documento_fiscal (tipo, numero, data_emissao, emitente, remetente, valor_total) VALUES" + "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO documento_fiscal (tipo, numero, data_emissao, cliente, fornecedor, valor_total) VALUES" + "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, d.getTipo());
             stmt.setString(2, d.getNumero());
             stmt.setDate(3, (Date) d.getDataEmissao());
-            stmt.setString(4, d.getEmitente().getDocumento());
-            stmt.setString(5, d.getRemetente().getDocumento());
+            stmt.setString(4, d.getCliente().getDocumento());
+            stmt.setString(5, d.getFornecedor().getDocumento());
             stmt.setDouble(6, d.getValorTotal());
             int verifica = stmt.executeUpdate();
             if (verifica > 0) {
@@ -37,7 +37,7 @@ public class DocumentoFiscalDAO {
         List<DocumentoFiscal> lstD = new ArrayList<>();
         ResultSet rs;
         try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM view_documentos_com_pessoas");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM vw_documentos_com_pessoas");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 lstD.add(consultar(rs));
@@ -51,17 +51,17 @@ public class DocumentoFiscalDAO {
 
     public DocumentoFiscal consultar(ResultSet rs) throws SQLException {
         DocumentoFiscal d = new DocumentoFiscal();
-        Parceiro emitente = new Parceiro();
-        Parceiro remetente = new Parceiro();
+        Parceiro cliente = new Parceiro();
+        Parceiro fornecedor = new Parceiro();
 
         d.setTipo(rs.getString("tipo"));
         d.setNumero(rs.getString("numero"));
-        emitente.setNome(rs.getString("nome_emitente"));
-        emitente.setDocumento(rs.getString("emitente"));
-        d.setEmitente(emitente);
-        remetente.setNome(rs.getString("nome_remetente"));
-        remetente.setDocumento(rs.getString("remetente"));
-        d.setRemetente(remetente);
+        cliente.setNome(rs.getString("nome_cliente"));
+        cliente.setDocumento(rs.getString("cliente"));
+        d.setCliente(cliente);
+        fornecedor.setNome(rs.getString("nome_fornecedor"));
+        fornecedor.setDocumento(rs.getString("fornecedor"));
+        d.setFornecedor(fornecedor);
         d.setDataEmissao(rs.getDate("data_emissao"));
         d.setValorTotal(rs.getDouble("valor_total"));
 
@@ -70,11 +70,11 @@ public class DocumentoFiscalDAO {
 
     public void atualizar(DocumentoFiscal d) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE documento_fiscal SET tipo = ?, data_emissao = ?, emitente = ?, remetente = ?, valor_total = ? WHERE numero = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE documento_fiscal SET tipo = ?, data_emissao = ?, cliente = ?, fornecedor = ?, valor_total = ? WHERE numero = ?");
             stmt.setString(1, d.getTipo());
             stmt.setDate(2, new java.sql.Date(d.getDataEmissao().getTime()));
-            stmt.setString(3, d.getEmitente().getDocumento());
-            stmt.setString(4, d.getRemetente().getDocumento());
+            stmt.setString(3, d.getCliente().getDocumento());
+            stmt.setString(4, d.getFornecedor().getDocumento());
             stmt.setDouble(5, d.getValorTotal());
             stmt.setString(6, d.getNumero());
 

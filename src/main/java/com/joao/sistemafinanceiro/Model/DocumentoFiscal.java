@@ -7,8 +7,8 @@ public class DocumentoFiscal {
     private String numero;
     private Date dataEmissao;
     private double valorTotal;
-    private Parceiro emitente;
-    private Parceiro remetente;
+    private Parceiro cliente;
+    private Parceiro fornecedor;
 
     public String getTipo() {
         return tipo;
@@ -42,19 +42,19 @@ public class DocumentoFiscal {
         this.valorTotal = valorTotal;
     }
 
-    public Parceiro getEmitente() {
-        return emitente;
+    public Parceiro getCliente() {
+        return cliente;
     }
 
-    public void setEmitente(Parceiro emitente) {
-        this.emitente = emitente;
+    public void setCliente(Parceiro cliente) {
+        this.cliente = cliente;
     }
 
-    public Parceiro getRemetente() {
-        return remetente;
+    public Parceiro getFornecedor() {
+        return fornecedor;
     }
 
-    public void setRemetente(Parceiro remetente) {
-        this.remetente = remetente;
+    public void setFornecedor(Parceiro fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }

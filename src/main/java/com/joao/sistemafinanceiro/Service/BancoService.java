@@ -44,7 +44,7 @@ public class BancoService {
     }
 
     public void atualizar(Banco b) {
-        atualizar(b);
+        bDAO.atualizar(b);
     }
 
     public void excluir(String agencia, String conta) {

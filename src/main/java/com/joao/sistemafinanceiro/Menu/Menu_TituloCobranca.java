@@ -54,6 +54,7 @@ public class Menu_TituloCobranca {
 
                     System.out.printf("ID: ");
                     t.setId(scanner.nextInt());
+                    scanner.nextLine();
 
                     System.out.printf("Numero do Documento Referente: ");
                     d.setNumero(scanner.nextLine());

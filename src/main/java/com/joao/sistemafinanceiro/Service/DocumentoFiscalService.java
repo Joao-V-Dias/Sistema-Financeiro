@@ -19,7 +19,7 @@ public class DocumentoFiscalService {
     public void consultarDocumentos() {
         List<DocumentoFiscal> lstD = dDAO.consultarTodos();
         System.out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
-        System.out.printf("| %-20s | %-18s | %-20s | %-18s | %-6s | %-12s | %-12s | %-13s |\n", "Emitente", "Doc Emitente", "Remetente", "Doc Remetente", "Tipo", "Número", "Emissão", "Valor");
+        System.out.printf("| %-20s | %-18s | %-20s | %-18s | %-6s | %-12s | %-12s | %-13s |\n", "Cliente", "Doc Cliente", "Fornecedor", "Doc Fornecedor", "Tipo", "Número", "Emissão", "Valor");
         System.out.println("+----------------------------------------------------------------------------------------------------------------------------------------------+");
         for (DocumentoFiscal d : lstD) {
             consultar(d);
@@ -28,7 +28,7 @@ public class DocumentoFiscalService {
     }
 
     public void consultar(DocumentoFiscal d) {
-        System.out.printf("| %-20s | %-18s | %-20s | %-18s | %-6s | %-12s | %-12s | R$ %-10.2f |\n", d.getEmitente().getNome(), d.getEmitente().getDocumento(), d.getRemetente().getNome(), d.getRemetente().getDocumento(), d.getTipo(), d.getNumero(), d.getDataEmissao().toString(), d.getValorTotal());
+        System.out.printf("| %-20s | %-18s | %-20s | %-18s | %-6s | %-12s | %-12s | R$ %-10.2f |\n", d.getCliente().getNome(), d.getCliente().getDocumento(), d.getFornecedor().getNome(), d.getFornecedor().getDocumento(), d.getTipo(), d.getNumero(), d.getDataEmissao().toString(), d.getValorTotal());
 
     }
 

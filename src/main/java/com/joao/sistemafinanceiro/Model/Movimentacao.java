@@ -5,10 +5,9 @@ import java.util.Date;
 public class Movimentacao {
     private int id;
     private Banco banco;
-    private DocumentoFiscal documento;
+    private TituloCobranca titulo;
     private String tipo;
     private Date dataOperacao;
-    private double valor;
     private String observacao;
 
     public int getId() {
@@ -27,12 +26,12 @@ public class Movimentacao {
         this.banco = banco;
     }
 
-    public DocumentoFiscal getDocumento() {
-        return documento;
+    public TituloCobranca getTituloCobranca() {
+        return titulo;
     }
 
-    public void setDocumento(DocumentoFiscal documento) {
-        this.documento = documento;
+    public void setTituloCobranca(TituloCobranca titulo) {
+        this.titulo = titulo;
     }
 
     public String getTipo() {
@@ -49,14 +48,6 @@ public class Movimentacao {
 
     public void setDataOperacao(Date dataOperacao) {
         this.dataOperacao = dataOperacao;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
     }
 
     public String getObservacao() {

@@ -61,12 +61,11 @@ public class TituloCobrancaDAO {
 
     public void atualizar(TituloCobranca t) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE titulo_cobranca SET numero_documento = ?, data_vencimento = ?, valor = ?, status = ? WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE titulo_cobranca SET numero_documento = ?, data_vencimento = ?, valor = ? WHERE id = ?");
             stmt.setString(1, t.getDocumento().getNumero());
             stmt.setDate(2, (Date) t.getDataVencimento());
             stmt.setDouble(3, t.getValor());
-            stmt.setString(4, t.getStatus());
-            stmt.setInt(5, t.getId());
+            stmt.setInt(4, t.getId());
 
             int verifica = stmt.executeUpdate();
             if (verifica > 0) {

@@ -1,9 +1,6 @@
 package com.joao.sistemafinanceiro.DAO;
 
-import com.joao.sistemafinanceiro.Model.Banco;
-import com.joao.sistemafinanceiro.Model.DocumentoFiscal;
-import com.joao.sistemafinanceiro.Model.Movimentacao;
-import com.joao.sistemafinanceiro.Model.Parceiro;
+import com.joao.sistemafinanceiro.Model.*;
 import com.joao.sistemafinanceiro.Util.Conexao;
 
 import java.sql.Connection;
@@ -22,13 +19,12 @@ public class MovimentacaoDAO {
 
     public void salvar(Movimentacao m) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO movimentacao (agencia, conta, " + "numero_documento, tipo, valor, observacao) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO movimentacao (agencia, conta, titulo_cobranca, tipo, observacao) VALUES (?, ?, ?, ?, ?)");
             stmt.setString(1, m.getBanco().getAgencia());
             stmt.setString(2, m.getBanco().getConta());
-            stmt.setString(3, m.getDocumento().getNumero());
+            stmt.setInt(3, m.getTituloCobranca().getId());
             stmt.setString(4, m.getTipo());
-            stmt.setDouble(5, m.getValor());
-            stmt.setString(6, m.getObservacao());
+            stmt.setString(5, m.getObservacao());
             int verifica = stmt.executeUpdate();
             if (verifica > 0) {
                 System.out.println("Cadastro realizado!");
@@ -56,36 +52,64 @@ public class MovimentacaoDAO {
     public Movimentacao consultar(ResultSet rs) throws SQLException {
         Movimentacao m = new Movimentacao();
         Banco b = new Banco();
+        TituloCobranca t = new TituloCobranca();
         DocumentoFiscal d = new DocumentoFiscal();
-        Parceiro emitente = new Parceiro();
-        Parceiro remetente = new Parceiro();
+        Parceiro cliente = new Parceiro();
+        Parceiro fornecedor = new Parceiro();
 
         m.setId(rs.getInt("id_movimentacao"));
-        m.setDataOperacao(rs.getDate("data_operacao"));
+        m.setDataOperacao(rs.getTimestamp("data_operacao"));
         m.setTipo(rs.getString("tipo_movimentacao"));
+
         b.setNome(rs.getString("banco"));
         m.setBanco(b);
-        d.setNumero(rs.getString("documento"));
-        d.setDataEmissao(rs.getDate("data_emissao"));
-        m.setDocumento(d);
-        emitente.setNome(rs.getString("emitente"));
-        remetente.setNome(rs.getString("remetente"));
-        d.setEmitente(emitente);
-        d.setRemetente(remetente);
 
+        t.setId(rs.getInt("id_titulo"));
+        t.setDataVencimento(rs.getDate("data_vencimento"));
+        t.setStatus(rs.getString("status_titulo"));
+        m.setTituloCobranca(t);
+
+        d.setNumero(rs.getString("numero_documento"));
+        d.setTipo(rs.getString("tipo_documento"));
+        d.setValorTotal(rs.getDouble("valor_total"));
+
+        cliente.setNome(rs.getString("nome_cliente"));
+        fornecedor.setNome(rs.getString("nome_fornecedor"));
+        d.setCliente(cliente);
+        d.setFornecedor(fornecedor);
+        t.setDocumento(d);
+
+        return m;
+    }
+
+    public Movimentacao consultarPorId(int id) {
+        Movimentacao m = null;
+        ResultSet rs;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM vw_movimentacao WHERE id_movimentacao = ?");
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                m = consultar(rs);
+            } else {
+                System.out.println("Movimentação com ID " + id + " não encontrada.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return m;
     }
 
     public void atualizar(Movimentacao m) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE movimentacao SET agencia = ?, conta = ?, numero_documento = ?, tipo = ?, valor = ?, observacao = ? WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE movimentacao SET agencia = ?, conta = ?, titulo_cobranca = ?, tipo = ?, valor = ?, observacao = ? WHERE id = ?");
             stmt.setString(1, m.getBanco().getAgencia());
             stmt.setString(2, m.getBanco().getConta());
-            stmt.setString(3, m.getDocumento().getNumero());
+            stmt.setInt(3, m.getTituloCobranca().getId());
             stmt.setString(4, m.getTipo());
-            stmt.setDouble(5, m.getValor());
-            stmt.setString(6, m.getObservacao());
-            stmt.setInt(7, m.getId());
+            stmt.setString(5, m.getObservacao());
+            stmt.setInt(6, m.getId());
 
             int verifica = stmt.executeUpdate();
             if (verifica > 0) {
@@ -97,6 +121,7 @@ public class MovimentacaoDAO {
             e.printStackTrace();
         }
     }
+
 
     public void excluir(int id) {
         try {

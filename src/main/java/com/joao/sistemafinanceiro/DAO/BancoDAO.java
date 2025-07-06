@@ -67,7 +67,6 @@ public class BancoDAO {
             stmt.setDouble(3, b.getSaldo());
             stmt.setString(4, b.getAgencia());
             stmt.setString(5, b.getConta());
-
             int verifica = stmt.executeUpdate();
             if (verifica > 0) {
                 System.out.println("Banco atualizado com sucesso!");

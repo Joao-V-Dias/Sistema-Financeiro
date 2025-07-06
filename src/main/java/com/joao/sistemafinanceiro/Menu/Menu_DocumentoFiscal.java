@@ -16,10 +16,11 @@ public class Menu_DocumentoFiscal {
             System.out.println("+--------------------------------------+");
             System.out.println("|         MENU DOCUMENTO FISCAL        |");
             System.out.println("+--------------------------------------+");
-            System.out.printf("| %-36s |\n", "1 - Cadastrar Documento");
-            System.out.printf("| %-36s |\n", "2 - Listar Documentos");
-            System.out.printf("| %-36s |\n", "3 - Editar Documento");
-            System.out.printf("| %-36s |\n", "4 - Remover Documento");
+            System.out.printf("| %-36s |\n", "1 - Emitir Documento");
+            System.out.printf("| %-36s |\n", "2 - Receber Documento");
+            System.out.printf("| %-36s |\n", "3 - Listar Documentos");
+            System.out.printf("| %-36s |\n", "4 - Editar Documento");
+            System.out.printf("| %-36s |\n", "5 - Remover Documento");
             System.out.printf("| %-36s |\n", "0 - Voltar");
             System.out.println("+--------------------------------------+");
 
@@ -29,8 +30,8 @@ public class Menu_DocumentoFiscal {
 
             switch (opcao) {
                 case 1 -> {
-                    Parceiro emitente = new Parceiro();
-                    Parceiro remetente = new Parceiro();
+                    Parceiro cliente = new Parceiro();
+                    Parceiro fornecedor = new Parceiro();
 
                     DocumentoFiscal d = new DocumentoFiscal();
 
@@ -40,13 +41,12 @@ public class Menu_DocumentoFiscal {
                     System.out.printf("Numero: ");
                     d.setNumero(scanner.nextLine());
 
-                    System.out.printf("CNPJ ou CPF do Emitente: ");
-                    emitente.setDocumento(scanner.nextLine());
-                    d.setEmitente(emitente);
+                    System.out.printf("CNPJ ou CPF do Cliente: ");
+                    cliente.setDocumento(scanner.nextLine());
+                    d.setCliente(cliente);
 
-                    System.out.printf("CNPJ ou CPF do Remente: ");
-                    remetente.setDocumento(scanner.nextLine());
-                    d.setRemetente(remetente);
+                    fornecedor.setDocumento("11.222.543/0001-00");
+                    d.setFornecedor(fornecedor);
 
                     System.out.printf("Data da Emissao (yyyy-MM-dd): ");
                     String dataStr = scanner.nextLine();
@@ -59,10 +59,9 @@ public class Menu_DocumentoFiscal {
 
                     dService.salvar(d);
                 }
-                case 2 -> dService.consultarDocumentos();
-                case 3 -> {
-                    Parceiro emitente = new Parceiro();
-                    Parceiro remetente = new Parceiro();
+                case 2 -> {
+                    Parceiro cliente = new Parceiro();
+                    Parceiro fornecedor = new Parceiro();
 
                     DocumentoFiscal d = new DocumentoFiscal();
 
@@ -72,13 +71,44 @@ public class Menu_DocumentoFiscal {
                     System.out.printf("Numero: ");
                     d.setNumero(scanner.nextLine());
 
-                    System.out.printf("CNPJ ou CPF do Emitente: ");
-                    emitente.setDocumento(scanner.nextLine());
-                    d.setEmitente(emitente);
+                    cliente.setDocumento("11.222.543/0001-00");
+                    d.setCliente(cliente);
+
+                    System.out.printf("CNPJ ou CPF do Fornecedor: ");
+                    fornecedor.setDocumento(scanner.nextLine());
+                    d.setFornecedor(fornecedor);
+
+                    System.out.printf("Data da Emissao (yyyy-MM-dd): ");
+                    String dataStr = scanner.nextLine();
+                    Date dataEmissao = Date.valueOf(dataStr);
+                    d.setDataEmissao(dataEmissao);
+
+                    System.out.printf("Valor total: ");
+                    d.setValorTotal(scanner.nextDouble());
+                    scanner.nextLine();
+
+                    dService.salvar(d);
+                }
+                case 3 -> dService.consultarDocumentos();
+                case 4 -> {
+                    Parceiro cliente = new Parceiro();
+                    Parceiro fornecedor = new Parceiro();
+
+                    DocumentoFiscal d = new DocumentoFiscal();
+
+                    System.out.printf("Tipo de Documento: ");
+                    d.setTipo(scanner.nextLine());
+
+                    System.out.printf("Numero: ");
+                    d.setNumero(scanner.nextLine());
+
+                    System.out.printf("CNPJ ou CPF do Cliente: ");
+                    cliente.setDocumento(scanner.nextLine());
+                    d.setCliente(cliente);
 
                     System.out.printf("CNPJ ou CPF do Remente: ");
-                    remetente.setDocumento(scanner.nextLine());
-                    d.setRemetente(remetente);
+                    fornecedor.setDocumento(scanner.nextLine());
+                    d.setFornecedor(fornecedor);
 
                     System.out.printf("Data da Emissao (yyyy-MM-dd): ");
                     String dataStr = scanner.nextLine();
@@ -91,7 +121,7 @@ public class Menu_DocumentoFiscal {
 
                     dService.atualizar(d);
                 }
-                case 4 -> {
+                case 5 -> {
                     System.out.printf("Numero: ");
                     String numero = scanner.nextLine();
 
