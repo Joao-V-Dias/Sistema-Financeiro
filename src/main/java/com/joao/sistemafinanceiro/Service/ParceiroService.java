@@ -39,7 +39,7 @@ public class ParceiroService {
     }
 
     public void atualizar(Parceiro p){
-
+        pDAO.atualizar(p);
     }
 
     public void excluir(String documento){

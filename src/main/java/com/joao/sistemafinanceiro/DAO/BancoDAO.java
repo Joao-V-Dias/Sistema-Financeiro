@@ -2,11 +2,8 @@ package com.joao.sistemafinanceiro.DAO;
 
 import com.joao.sistemafinanceiro.Model.Banco;
 import com.joao.sistemafinanceiro.Util.Conexao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +17,7 @@ public class BancoDAO {
 
     public void salvar(Banco b) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO banco "
-                    + "(nome, agencia, conta, tipo, saldo) VALUES (?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO banco " + "(nome, agencia, conta, tipo, saldo) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, b.getNome());
             stmt.setString(2, b.getAgencia());
             stmt.setString(3, b.getConta());
@@ -65,16 +60,32 @@ public class BancoDAO {
     }
 
     public void atualizar(Banco b) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("UPDATE banco SET nome = ?, tipo = ?, saldo = ? WHERE agencia = ? AND conta = ?");
+            stmt.setString(1, b.getNome());
+            stmt.setString(2, b.getTipo());
+            stmt.setDouble(3, b.getSaldo());
+            stmt.setString(4, b.getAgencia());
+            stmt.setString(5, b.getConta());
 
+            int verifica = stmt.executeUpdate();
+            if (verifica > 0) {
+                System.out.println("Banco atualizado com sucesso!");
+            } else {
+                System.out.println("Nenhum banco foi atualizado. Verifique se a agencia e conta estao corretas.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void excluir(String agencia, String conta) {
-        try{
+        try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM banco WHERE agencia = ? AND conta = ?");
             stmt.setString(1, agencia);
             stmt.setString(2, conta);
             int verifica = stmt.executeUpdate();
-            if(verifica > 0) {
+            if (verifica > 0) {
                 System.out.println("Banco deletado com sucesso!");
                 return;
             }

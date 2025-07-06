@@ -30,7 +30,9 @@ public class TituloCobrancaService {
         System.out.printf("| %-3d | %-25s | %-12s | R$ %-9.2f | %-10s |\n", t.getId(), t.getDocumento().getNumero(), t.getDataVencimento().toString(), t.getValor(), t.getStatus());
     }
 
-    public void atualizar(){}
+    public void atualizar(TituloCobranca t){
+        tDAO.atualizar(t);
+    }
 
     public void excluir(int id){
         tDAO.excluir(id);

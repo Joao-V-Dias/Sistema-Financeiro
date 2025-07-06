@@ -43,8 +43,8 @@ public class BancoService {
         System.out.printf("| %-40s | %-12s | %-20s | %-14s | R$ %-13.2f |\n", b.getNome(), b.getAgencia(), b.getConta(), b.getTipo(), b.getSaldo());
     }
 
-    public void editar(Banco b) {
-
+    public void atualizar(Banco b) {
+        atualizar(b);
     }
 
     public void excluir(String agencia, String conta) {

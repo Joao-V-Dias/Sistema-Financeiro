@@ -32,7 +32,9 @@ public class DocumentoFiscalService {
 
     }
 
-    public void atualizar(){}
+    public void atualizar(DocumentoFiscal d){
+        dDAO.atualizar(d);
+    }
 
     public void excluir(String numero){
         dDAO.excluir(numero);

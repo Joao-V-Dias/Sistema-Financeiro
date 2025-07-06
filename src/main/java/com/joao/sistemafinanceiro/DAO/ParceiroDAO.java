@@ -17,9 +17,7 @@ public class ParceiroDAO {
 
     public void salvar(Parceiro p) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO parceiro "
-                    + "(nome, documento, tipo, email, telefone) VALUES"
-                    + "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO parceiro " + "(nome, documento, tipo, email, telefone) VALUES" + "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, p.getNome());
             stmt.setString(2, p.getDocumento());
             stmt.setString(3, p.getTipo());
@@ -59,21 +57,38 @@ public class ParceiroDAO {
         return p;
     }
 
-    public void atualizar(){
+    public void atualizar(Parceiro p) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("UPDATE parceiro SET nome = ?, tipo = ?, email = ?, telefone = ? WHERE documento = ?");
+            stmt.setString(1, p.getNome());
+            stmt.setString(2, p.getTipo());
+            stmt.setString(3, p.getEmail());
+            stmt.setString(4, p.getTelefone());
+            stmt.setString(5, p.getDocumento());
 
+            int verifica = stmt.executeUpdate();
+            if (verifica > 0) {
+                System.out.println("Parceiro atualizado com sucesso!");
+            } else {
+                System.out.println("Nenhum parceiro foi atualizado. Verifique se o documento está correto.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void excluir(String documento){
-        try{
+
+    public void excluir(String documento) {
+        try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM parceiro WHERE documento = ?");
             stmt.setString(1, documento);
             int verifica = stmt.executeUpdate();
-            if(verifica > 0){
-                System.out.println("Parceiro " + documento  + " excluido com sucesso!");
+            if (verifica > 0) {
+                System.out.println("Parceiro " + documento + " excluido com sucesso!");
                 return;
             }
             System.out.println("Ocorreu um erro ao tentar excluir, verifique o dados novamente");
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

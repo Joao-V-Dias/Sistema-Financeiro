@@ -28,7 +28,7 @@ public class Menu_DocumentoFiscal {
             scanner.nextLine();
 
             switch (opcao) {
-                case 1 -> {
+                case 1, 3 -> {
                     Parceiro emitente = new Parceiro();
                     Parceiro remetente = new Parceiro();
 

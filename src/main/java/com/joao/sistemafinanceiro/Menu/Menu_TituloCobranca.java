@@ -48,6 +48,28 @@ public class Menu_TituloCobranca {
                     tService.salvar(t);
                 }
                 case 2 -> tService.consultarTodos();
+                case 3 -> {
+                    TituloCobranca t = new TituloCobranca();
+                    DocumentoFiscal d = new DocumentoFiscal();
+
+                    System.out.printf("ID: ");
+                    t.setId(scanner.nextInt());
+
+                    System.out.printf("Numero do Documento Referente: ");
+                    d.setNumero(scanner.nextLine());
+                    t.setDocumento(d);
+
+                    System.out.printf("Data de vencimento (yyyy-MM-dd): ");
+                    String dataStr = scanner.nextLine();
+                    Date dataEmissao = Date.valueOf(dataStr);
+                    t.setDataVencimento(dataEmissao);
+
+                    System.out.printf("Valor total: ");
+                    t.setValor(scanner.nextDouble());
+                    scanner.nextLine();
+
+                    tService.salvar(t);
+                }
                 case 4 -> {
                     System.out.printf("ID: ");
                     int id = scanner.nextInt();

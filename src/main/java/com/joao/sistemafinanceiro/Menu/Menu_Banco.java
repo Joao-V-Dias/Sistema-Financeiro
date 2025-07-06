@@ -32,7 +32,7 @@ public class Menu_Banco {
             scanner.nextLine();
 
             switch (opcao) {
-                case 1 -> {
+                case 1, 3 -> {
                     Banco b = new Banco();
 
                     System.out.printf("Nome do banco: ");

@@ -31,7 +31,7 @@ public class Menu_Parceiro {
             scanner.nextLine();
 
             switch (opcao) {
-                case 1 -> {
+                case 1, 3 -> {
                     Parceiro p = new Parceiro();
 
                     System.out.printf("Nome: ");

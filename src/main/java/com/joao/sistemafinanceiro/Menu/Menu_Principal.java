@@ -30,6 +30,7 @@ public class Menu_Principal {
 
             switch (opcao) {
                 case 1 -> Menu_Parceiro.executar(scanner);
+                case 2 -> Menu_Movimentacao.executar(scanner);
                 case 3 -> Menu_Banco.executar(scanner);
                 case 4 -> Menu_DocumentoFiscal.executar(scanner);
                 case 5 -> Menu_TituloCobranca.executar(scanner);
