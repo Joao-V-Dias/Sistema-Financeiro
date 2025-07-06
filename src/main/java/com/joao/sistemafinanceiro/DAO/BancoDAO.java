@@ -10,11 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Joao
- * @version 1.0
- * @since Jul 5, 2025
- */
 public class BancoDAO {
 
     Connection conn;
@@ -42,14 +37,14 @@ public class BancoDAO {
         }
     }
 
-    public List<Banco> consultarBancos() {
+    public List<Banco> consultarTodos() {
         List<Banco> lstB = new ArrayList<>();
         ResultSet rs;
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM banco");
             rs = stmt.executeQuery();
             while (rs.next()) {
-                lstB.add(getBanco(rs));
+                lstB.add(consultar(rs));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -57,10 +52,9 @@ public class BancoDAO {
         return lstB;
     }
 
-    public Banco getBanco(ResultSet rs) throws SQLException {
+    public Banco consultar(ResultSet rs) throws SQLException {
         Banco b = new Banco();
 
-        b.setId(rs.getInt("id"));
         b.setNome(rs.getString("nome"));
         b.setAgencia(rs.getString("agencia"));
         b.setConta(rs.getString("conta"));
@@ -68,6 +62,26 @@ public class BancoDAO {
         b.setSaldo(rs.getDouble("saldo"));
 
         return b;
+    }
+
+    public void atualizar(Banco b) {
+
+    }
+
+    public void excluir(String agencia, String conta) {
+        try{
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM banco WHERE agencia = ? AND conta = ?");
+            stmt.setString(1, agencia);
+            stmt.setString(2, conta);
+            int verifica = stmt.executeUpdate();
+            if(verifica > 0) {
+                System.out.println("Banco deletado com sucesso!");
+                return;
+            }
+            System.out.println("Ocorreu um erro ao tentar excluir, verifique o dados novamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public double consultarSaldoTotal() {

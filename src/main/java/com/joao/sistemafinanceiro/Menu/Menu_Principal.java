@@ -21,7 +21,7 @@ public class Menu_Principal {
             System.out.printf("| %-36s |\n", "2 - Movimento");
             System.out.printf("| %-36s |\n", "3 - Banco");
             System.out.printf("| %-36s |\n", "4 - Documentos Fiscais");
-            System.out.printf("| %-36s |\n", "5 - Titulos de Pagamento");
+            System.out.printf("| %-36s |\n", "5 - Titulos de Cobranca");
             System.out.printf("| %-36s |\n", "0 - Sair");
             System.out.println("+--------------------------------------+");
 
@@ -32,6 +32,7 @@ public class Menu_Principal {
                 case 1 -> Menu_Parceiro.executar(scanner);
                 case 3 -> Menu_Banco.executar(scanner);
                 case 4 -> Menu_DocumentoFiscal.executar(scanner);
+                case 5 -> Menu_TituloCobranca.executar(scanner);
                 case 0 -> System.out.println("Encerrando o sistema... ");
                 default -> System.out.println("Opcao invalida. ");
             }

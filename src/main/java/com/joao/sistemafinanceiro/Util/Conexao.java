@@ -4,12 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * @author Joao
- * @version 1.0
- * @since Jul 3, 2025
- * @see Conexao
- */
 public class Conexao {
 
     final private String driver = "com.mysql.cj.jdbc.Driver";

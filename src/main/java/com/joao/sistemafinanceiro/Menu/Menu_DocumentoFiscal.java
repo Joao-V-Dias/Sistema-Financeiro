@@ -3,8 +3,8 @@ package com.joao.sistemafinanceiro.Menu;
 import com.joao.sistemafinanceiro.Model.DocumentoFiscal;
 import com.joao.sistemafinanceiro.Model.Parceiro;
 import com.joao.sistemafinanceiro.Service.DocumentoFiscalService;
-import java.sql.Date;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 public class Menu_DocumentoFiscal {
@@ -60,6 +60,12 @@ public class Menu_DocumentoFiscal {
                     pService.salvar(d);
                 }
                 case 2 -> pService.consultarDocumentos();
+                case 4 -> {
+                    System.out.printf("Numero: ");
+                    String numero = scanner.nextLine();
+
+                    pService.excluir(numero);
+                }
                 case 0 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida. ");
             }

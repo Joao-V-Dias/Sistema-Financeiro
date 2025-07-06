@@ -3,21 +3,12 @@ package com.joao.sistemafinanceiro.Model;
 import java.util.Date;
 
 public class DocumentoFiscal {
-    private int id;
     private String tipo;
     private String numero;
     private Date dataEmissao;
     private double valorTotal;
     private Parceiro emitente;
     private Parceiro remetente;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTipo() {
         return tipo;

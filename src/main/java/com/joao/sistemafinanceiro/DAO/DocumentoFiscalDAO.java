@@ -41,7 +41,7 @@ public class DocumentoFiscalDAO {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM view_documentos_com_pessoas");
             rs = stmt.executeQuery();
             while(rs.next()){
-                lstD.add(getDocumento(rs));
+                lstD.add(consultar(rs));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -50,23 +50,39 @@ public class DocumentoFiscalDAO {
         return lstD;
     }
 
-    public DocumentoFiscal getDocumento(ResultSet rs) throws SQLException {
+    public DocumentoFiscal consultar(ResultSet rs) throws SQLException {
         DocumentoFiscal d = new DocumentoFiscal();
         Parceiro emitente = new Parceiro();
         Parceiro remetente = new Parceiro();
 
-        d.setId(rs.getInt("id"));
         d.setTipo(rs.getString("tipo"));
         d.setNumero(rs.getString("numero"));
         emitente.setNome(rs.getString("nome_emitente"));
-        emitente.setDocumento(rs.getString("doc_emitente"));
+        emitente.setDocumento(rs.getString("emitente"));
         d.setEmitente(emitente);
         remetente.setNome(rs.getString("nome_remetente"));
-        remetente.setDocumento(rs.getString("doc_remetente"));
+        remetente.setDocumento(rs.getString("remetente"));
         d.setRemetente(remetente);
         d.setDataEmissao(rs.getDate("data_emissao"));
         d.setValorTotal(rs.getDouble("valor_total"));
 
         return d;
+    }
+
+    public void atualizar(){}
+
+    public void excluir(String numero){
+        try{
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM documento_fiscal WHERE numero = ?");
+            stmt.setString(1, numero);
+            int verifica = stmt.executeUpdate();
+            if(verifica > 0){
+                System.out.println(numero + " excluido com sucesso!");
+                return;
+            }
+            System.out.println("Ocorreu um erro ao tentar excluir, verifique o dados novamente");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

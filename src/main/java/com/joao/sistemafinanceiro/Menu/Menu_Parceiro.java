@@ -52,6 +52,12 @@ public class Menu_Parceiro {
                     pService.salvar(p);
                 }
                 case 2 -> pService.consultarTodos();
+                case 4 -> {
+                    System.out.printf("CNPJ/CPF: ");
+                    String documento = scanner.nextLine();
+
+                    pService.excluir(documento);
+                }
                 case 0 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida. ");
             }

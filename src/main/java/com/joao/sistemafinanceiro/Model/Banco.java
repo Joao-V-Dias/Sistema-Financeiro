@@ -2,24 +2,15 @@ package com.joao.sistemafinanceiro.Model;
 
 /**
  * @author Joao
- * @version 1.0
+ * @version 1.1
  * @since Jul 3, 2025
  */
 public class Banco {
-    private int id;
     private String nome;
     private String agencia;
     private String conta;
     private String tipo;
     private double saldo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

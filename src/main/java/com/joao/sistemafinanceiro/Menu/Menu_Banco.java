@@ -2,6 +2,7 @@ package com.joao.sistemafinanceiro.Menu;
 
 import com.joao.sistemafinanceiro.Model.Banco;
 import com.joao.sistemafinanceiro.Service.BancoService;
+
 import java.util.Scanner;
 
 /**
@@ -33,30 +34,37 @@ public class Menu_Banco {
             switch (opcao) {
                 case 1 -> {
                     Banco b = new Banco();
-                    
+
                     System.out.printf("Nome do banco: ");
                     b.setNome(scanner.nextLine());
-                    
+
                     System.out.printf("Agencia: ");
                     b.setAgencia(scanner.nextLine());
-                            
+
                     System.out.printf("Conta: ");
                     b.setConta(scanner.nextLine());
-                    
+
                     System.out.printf("Tipo: ");
                     b.setTipo(scanner.nextLine());
-                    
+
                     System.out.printf("Saldo atual: ");
                     b.setSaldo(scanner.nextDouble());
                     scanner.nextLine();
-                    
+
                     bService.salvar(b);
                 }
                 case 2 -> bService.consultarTodos();
-                case 0 ->
-                    System.out.println("Voltando ao menu principal...");
-                default ->
-                    System.out.println("Opcao invalida. ");
+                case 4 -> {
+                    System.out.printf("Agencia: ");
+                    String agencia = scanner.nextLine();
+
+                    System.out.printf("Conta: ");
+                    String conta = scanner.nextLine();
+
+                    bService.excluir(agencia, conta);
+                }
+                case 0 -> System.out.println("Voltando ao menu principal...");
+                default -> System.out.println("Opcao invalida. ");
             }
         } while (opcao != 0);
     }
