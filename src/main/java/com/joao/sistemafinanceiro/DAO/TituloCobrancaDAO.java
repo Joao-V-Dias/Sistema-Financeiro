@@ -17,8 +17,8 @@ public class TituloCobrancaDAO {
 
     public void salvar(TituloCobranca t) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO titulo_cobranca (documento_id, data_vencimento, valor)" + "VALUES (?, ?, ?)");
-            // stmt.setInt(1, t.getDocumento().getId());
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO titulo_cobranca (numero_documento, data_vencimento, valor)" + "VALUES (?, ?, ?)");
+            stmt.setString(1, t.getDocumento().getNumero());
             stmt.setDate(2, (Date) t.getDataVencimento());
             stmt.setDouble(3, t.getValor());
             int verifica = stmt.executeUpdate();
@@ -50,12 +50,27 @@ public class TituloCobrancaDAO {
         DocumentoFiscal d = new DocumentoFiscal();
 
         t.setId(rs.getInt("id"));
-        // d.setId(rs.getInt("documento_id"));
+        d.setNumero(rs.getString("numero_documento"));
         t.setDocumento(d);
         t.setDataVencimento(rs.getDate("data_vencimento"));
         t.setValor(rs.getDouble("valor"));
         t.setStatus(rs.getString("status"));
 
         return t;
+    }
+
+    public void excluir(int id){
+        try{
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM titulo_cobranca WHERE id = ?");
+            stmt.setInt(1, id);
+            int verifica = stmt.executeUpdate();
+            if(verifica > 0){
+                System.out.println("Item de ID: " + id + " excluido com sucesso!");
+                return;
+            }
+            System.out.println("Ocorreu um erro ao tentar excluir, verifique o dados novamente");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 }

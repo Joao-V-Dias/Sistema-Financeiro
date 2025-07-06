@@ -48,6 +48,12 @@ public class Menu_TituloCobranca {
                     tService.salvar(t);
                 }
                 case 2 -> tService.consultarTodos();
+                case 4 -> {
+                    System.out.printf("ID: ");
+                    int id = scanner.nextInt();
+
+                    tService.excluir(id);
+                }
                 case 0 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida. ");
             }
