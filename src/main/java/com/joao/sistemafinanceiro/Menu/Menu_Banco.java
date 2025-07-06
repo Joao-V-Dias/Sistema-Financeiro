@@ -32,7 +32,7 @@ public class Menu_Banco {
             scanner.nextLine();
 
             switch (opcao) {
-                case 1, 3 -> {
+                case 1 -> {
                     Banco b = new Banco();
 
                     System.out.printf("Nome do banco: ");
@@ -54,6 +54,27 @@ public class Menu_Banco {
                     bService.salvar(b);
                 }
                 case 2 -> bService.consultarTodos();
+                case 3 -> {
+                    Banco b = new Banco();
+
+                    System.out.printf("Nome do banco: ");
+                    b.setNome(scanner.nextLine());
+
+                    System.out.printf("Agencia: ");
+                    b.setAgencia(scanner.nextLine());
+
+                    System.out.printf("Conta: ");
+                    b.setConta(scanner.nextLine());
+
+                    System.out.printf("Tipo: ");
+                    b.setTipo(scanner.nextLine());
+
+                    System.out.printf("Saldo atual: ");
+                    b.setSaldo(scanner.nextDouble());
+                    scanner.nextLine();
+
+                    bService.atualizar(b);
+                }
                 case 4 -> {
                     System.out.printf("Agencia: ");
                     String agencia = scanner.nextLine();

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Menu_DocumentoFiscal {
     public static void executar(Scanner scanner) {
-        DocumentoFiscalService pService = new DocumentoFiscalService();
+        DocumentoFiscalService dService = new DocumentoFiscalService();
         int opcao;
 
         do {
@@ -28,7 +28,7 @@ public class Menu_DocumentoFiscal {
             scanner.nextLine();
 
             switch (opcao) {
-                case 1, 3 -> {
+                case 1 -> {
                     Parceiro emitente = new Parceiro();
                     Parceiro remetente = new Parceiro();
 
@@ -57,14 +57,45 @@ public class Menu_DocumentoFiscal {
                     d.setValorTotal(scanner.nextDouble());
                     scanner.nextLine();
 
-                    pService.salvar(d);
+                    dService.salvar(d);
                 }
-                case 2 -> pService.consultarDocumentos();
+                case 2 -> dService.consultarDocumentos();
+                case 3 -> {
+                    Parceiro emitente = new Parceiro();
+                    Parceiro remetente = new Parceiro();
+
+                    DocumentoFiscal d = new DocumentoFiscal();
+
+                    System.out.printf("Tipo de Documento: ");
+                    d.setTipo(scanner.nextLine());
+
+                    System.out.printf("Numero: ");
+                    d.setNumero(scanner.nextLine());
+
+                    System.out.printf("CNPJ ou CPF do Emitente: ");
+                    emitente.setDocumento(scanner.nextLine());
+                    d.setEmitente(emitente);
+
+                    System.out.printf("CNPJ ou CPF do Remente: ");
+                    remetente.setDocumento(scanner.nextLine());
+                    d.setRemetente(remetente);
+
+                    System.out.printf("Data da Emissao (yyyy-MM-dd): ");
+                    String dataStr = scanner.nextLine();
+                    Date dataEmissao = Date.valueOf(dataStr);
+                    d.setDataEmissao(dataEmissao);
+
+                    System.out.printf("Valor total: ");
+                    d.setValorTotal(scanner.nextDouble());
+                    scanner.nextLine();
+
+                    dService.atualizar(d);
+                }
                 case 4 -> {
                     System.out.printf("Numero: ");
                     String numero = scanner.nextLine();
 
-                    pService.excluir(numero);
+                    dService.excluir(numero);
                 }
                 case 0 -> System.out.println("Voltando ao menu principal...");
                 default -> System.out.println("Opcao invalida. ");

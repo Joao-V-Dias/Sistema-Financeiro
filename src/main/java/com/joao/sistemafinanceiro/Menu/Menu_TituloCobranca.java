@@ -68,7 +68,7 @@ public class Menu_TituloCobranca {
                     t.setValor(scanner.nextDouble());
                     scanner.nextLine();
 
-                    tService.salvar(t);
+                    tService.atualizar(t);
                 }
                 case 4 -> {
                     System.out.printf("ID: ");

@@ -31,7 +31,7 @@ public class Menu_Parceiro {
             scanner.nextLine();
 
             switch (opcao) {
-                case 1, 3 -> {
+                case 1 -> {
                     Parceiro p = new Parceiro();
 
                     System.out.printf("Nome: ");
@@ -52,6 +52,26 @@ public class Menu_Parceiro {
                     pService.salvar(p);
                 }
                 case 2 -> pService.consultarTodos();
+                case 3 -> {
+                    Parceiro p = new Parceiro();
+
+                    System.out.printf("Nome: ");
+                    p.setNome(scanner.nextLine());
+
+                    System.out.printf("CNPJ/CPF: ");
+                    p.setDocumento(scanner.nextLine());
+
+                    System.out.printf("Tipo (Fornecedor/Cliente/Ambos): ");
+                    p.setTipo(scanner.nextLine());
+
+                    System.out.printf("Email: ");
+                    p.setEmail(scanner.nextLine());
+
+                    System.out.printf("Telefone: ");
+                    p.setTelefone(scanner.nextLine());
+
+                    pService.atualizar(p);
+                }
                 case 4 -> {
                     System.out.printf("CNPJ/CPF: ");
                     String documento = scanner.nextLine();

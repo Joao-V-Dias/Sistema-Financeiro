@@ -60,7 +60,34 @@ public class Menu_Movimentacao {
                 }
                 case 2 -> mService.consultarTodos();
                 case 3 -> {
+                    Movimentacao m = new Movimentacao();
+                    Banco b = new Banco();
+                    DocumentoFiscal d = new DocumentoFiscal();
 
+                    System.out.printf("ID: ");
+                    m.setId(scanner.nextInt());
+
+                    System.out.printf("Agencia do Banco: ");
+                    b.setAgencia(scanner.nextLine());
+
+                    System.out.printf("Conta do Banco: ");
+                    b.setConta(scanner.nextLine());
+
+                    m.setBanco(b);
+
+                    System.out.printf("Documento: ");
+                    d.setNumero(scanner.nextLine());
+
+                    m.setDocumento(d);
+
+                    System.out.printf("Tipo (PAGAR/RECEBER): ");
+                    m.setTipo(scanner.nextLine());
+
+                    System.out.println("Valor: ");
+                    m.setValor(scanner.nextDouble());
+
+                    System.out.println("Observacao: ");
+                    m.setObservacao(scanner.nextLine());
                 }
                 case 4 -> {
                     System.out.printf("ID: ");

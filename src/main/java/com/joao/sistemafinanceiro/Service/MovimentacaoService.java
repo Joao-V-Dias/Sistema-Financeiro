@@ -31,6 +31,10 @@ public class MovimentacaoService {
         System.out.printf("| %-4d | %-19s | %-8s | %-20s | %-16s | %-12s | %-20s | %-20s |\n", m.getId(), m.getDataOperacao().toString(), m.getTipo(), m.getBanco().getNome(), m.getDocumento().getNumero(), m.getDocumento().getDataEmissao().toString(), m.getDocumento().getEmitente().getNome(), m.getDocumento().getRemetente().getNome());
     }
 
+    public void atualizar(Movimentacao m){
+        mDAO.atualizar(m);
+    }
+
     public void excluir(int id){
         mDAO.excluir(id);
     }
