@@ -77,10 +77,11 @@ public class Menu_DocumentoFiscal {
                         scanner.nextLine();
                         t.setValor(valor);
 
-                        valorTotal+= valor;
+                        valorTotal += valor;
                         lstT.add(t);
                     }
 
+                    d.setValorTotal(valorTotal);
                     d.setTitulos(lstT);
 
                     dService.salvar(d);
