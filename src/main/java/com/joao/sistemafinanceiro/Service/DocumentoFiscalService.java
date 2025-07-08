@@ -1,19 +1,26 @@
 package com.joao.sistemafinanceiro.Service;
 
 import com.joao.sistemafinanceiro.DAO.DocumentoFiscalDAO;
+import com.joao.sistemafinanceiro.DAO.TituloCobrancaDAO;
 import com.joao.sistemafinanceiro.Model.DocumentoFiscal;
+import com.joao.sistemafinanceiro.Model.TituloCobranca;
 
 import java.util.List;
 
 public class DocumentoFiscalService {
     DocumentoFiscalDAO dDAO;
+    TituloCobrancaDAO tDAO;
 
     public DocumentoFiscalService() {
         this.dDAO = new DocumentoFiscalDAO();
+        this.tDAO = new TituloCobrancaDAO();
     }
 
     public void salvar(DocumentoFiscal d) {
         dDAO.salvar(d);
+        for(TituloCobranca t : d.getTitulos()){
+            tDAO.salvar(t);
+        }
     }
 
     public void consultarDocumentos() {

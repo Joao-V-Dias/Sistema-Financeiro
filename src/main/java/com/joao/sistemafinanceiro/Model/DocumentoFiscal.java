@@ -1,6 +1,7 @@
 package com.joao.sistemafinanceiro.Model;
 
 import java.util.Date;
+import java.util.List;
 
 public class DocumentoFiscal {
     private String tipo;
@@ -9,6 +10,7 @@ public class DocumentoFiscal {
     private double valorTotal;
     private Parceiro cliente;
     private Parceiro fornecedor;
+    private List<TituloCobranca> titulos;
 
     public String getTipo() {
         return tipo;
@@ -56,5 +58,13 @@ public class DocumentoFiscal {
 
     public void setFornecedor(Parceiro fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+    public List<TituloCobranca> getTitulos() {
+        return titulos;
+    }
+
+    public void setTitulos(List<TituloCobranca> titulos) {
+        this.titulos = titulos;
     }
 }

@@ -2,9 +2,12 @@ package com.joao.sistemafinanceiro.Menu;
 
 import com.joao.sistemafinanceiro.Model.DocumentoFiscal;
 import com.joao.sistemafinanceiro.Model.Parceiro;
+import com.joao.sistemafinanceiro.Model.TituloCobranca;
 import com.joao.sistemafinanceiro.Service.DocumentoFiscalService;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu_DocumentoFiscal {
@@ -32,6 +35,7 @@ public class Menu_DocumentoFiscal {
                 case 1 -> {
                     Parceiro cliente = new Parceiro();
                     Parceiro fornecedor = new Parceiro();
+                    List<TituloCobranca> lstT = new ArrayList<>();
 
                     DocumentoFiscal d = new DocumentoFiscal();
 
@@ -53,9 +57,31 @@ public class Menu_DocumentoFiscal {
                     Date dataEmissao = Date.valueOf(dataStr);
                     d.setDataEmissao(dataEmissao);
 
-                    System.out.printf("Valor total: ");
-                    d.setValorTotal(scanner.nextDouble());
+                    System.out.printf("Quantidade de pagamentos: ");
+                    int qtdPagamentos = scanner.nextInt();
                     scanner.nextLine();
+
+                    double valorTotal = 0.0;
+
+                    for (int i = 0; i < qtdPagamentos; i++) {
+                        TituloCobranca t = new TituloCobranca();
+                        t.setDocumento(d);
+
+                        System.out.printf("Data de vencimento (yyyy-MM-dd): ");
+                        String dataStrT = scanner.nextLine();
+                        Date dataEmissaoT = Date.valueOf(dataStrT);
+                        t.setDataVencimento(dataEmissaoT);
+
+                        System.out.printf("Valor: ");
+                        double valor = scanner.nextDouble();
+                        scanner.nextLine();
+                        t.setValor(valor);
+
+                        valorTotal+= valor;
+                        lstT.add(t);
+                    }
+
+                    d.setTitulos(lstT);
 
                     dService.salvar(d);
                 }
