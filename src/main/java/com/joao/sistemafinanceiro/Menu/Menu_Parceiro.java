@@ -20,9 +20,11 @@ public class Menu_Parceiro {
             System.out.println("|            MENU PARCEIROS            |");
             System.out.println("+--------------------------------------+");
             System.out.printf("| %-36s |\n", "1 - Cadastrar Parceiro");
-            System.out.printf("| %-36s |\n", "2 - Listar Parceiro");
-            System.out.printf("| %-36s |\n", "3 - Editar Parceiro");
-            System.out.printf("| %-36s |\n", "4 - Remover Parceiro");
+            System.out.printf("| %-36s |\n", "2 - Listar Todas");
+            System.out.printf("| %-36s |\n", "3 - Listar Clientes");
+            System.out.printf("| %-36s |\n", "4 - Listar Fornecedores");
+            System.out.printf("| %-36s |\n", "5 - Editar Parceiro");
+            System.out.printf("| %-36s |\n", "6 - Remover Parceiro");
             System.out.printf("| %-36s |\n", "0 - Voltar");
             System.out.println("+--------------------------------------+");
 
@@ -52,7 +54,9 @@ public class Menu_Parceiro {
                     pService.salvar(p);
                 }
                 case 2 -> pService.consultarTodos();
-                case 3 -> {
+                case 3 -> pService.consultarTodos("CLIENTE");
+                case 4 -> pService.consultarTodos("FORNECEDOR");
+                case 5 -> {
                     Parceiro p = new Parceiro();
 
                     System.out.printf("Nome: ");
@@ -72,7 +76,7 @@ public class Menu_Parceiro {
 
                     pService.atualizar(p);
                 }
-                case 4 -> {
+                case 6 -> {
                     System.out.printf("CNPJ/CPF: ");
                     String documento = scanner.nextLine();
 

@@ -47,6 +47,22 @@ public class ParceiroDAO {
         return lstP;
     }
 
+    public List<Parceiro> consultarTodos(String tipo) {
+        List<Parceiro> lstP = new ArrayList<>();
+        ResultSet rs;
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM parceiro WHERE tipo = ? OR tipo = 'AMBOS'");
+            stmt.setString(1, tipo);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                lstP.add(consultar(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lstP;
+    }
+
     public Parceiro consultar(ResultSet rs) throws SQLException {
         Parceiro p = new Parceiro();
         p.setNome(rs.getString("nome"));

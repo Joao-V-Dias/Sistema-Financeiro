@@ -14,8 +14,8 @@ public class Menu_Movimentacao {
             System.out.println("+--------------------------------------+");
             System.out.println("|           MENU MOVIMENTACAO          |");
             System.out.println("+--------------------------------------+");
-            System.out.printf("| %-36s |\n", "1 - Pagar");
-            System.out.printf("| %-36s |\n", "2 - Receber");
+            System.out.printf("| %-36s |\n", "1 - Receber");
+            System.out.printf("| %-36s |\n", "2 - Pagar");
             System.out.printf("| %-36s |\n", "3 - Listar Movimentos");
             System.out.printf("| %-36s |\n", "4 - Consultar Movimento por ID");
             System.out.printf("| %-36s |\n", "5 - Editar Movimento");

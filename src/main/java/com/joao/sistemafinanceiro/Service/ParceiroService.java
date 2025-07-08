@@ -34,6 +34,18 @@ public class ParceiroService {
                 "+-------------------------------------------------------------------------------------------------------+\n\n");
     }
 
+    public void consultarTodos(String tipo) {
+        List<Parceiro> lstP = pDAO.consultarTodos(tipo);
+        System.out.println("+-------------------------------------------------------------------------------------------------------+");
+        System.out.printf("| %-20s | %-18s | %-11s | %-25s | %-15s |\n", "Nome", "Documento", "Tipo", "Email", "Telefone");
+        System.out.println("+-------------------------------------------------------------------------------------------------------+");
+        for (Parceiro p : lstP) {
+            consultar(p);
+        }
+        System.out.println(
+                "+-------------------------------------------------------------------------------------------------------+\n\n");
+    }
+
     public void consultar(Parceiro p) {
         System.out.printf("| %-20s | %-18s | %-11s | %-25s | %-15s |\n", p.getNome(), p.getDocumento(), p.getTipo(), p.getEmail(), p.getTelefone());
     }
