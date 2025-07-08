@@ -67,6 +67,8 @@ public class Menu_DocumentoFiscal {
                         TituloCobranca t = new TituloCobranca();
                         t.setDocumento(d);
 
+                        System.out.println("PAGAMENTO N" + i + 1);
+
                         System.out.printf("Data de vencimento (yyyy-MM-dd): ");
                         String dataStrT = scanner.nextLine();
                         Date dataEmissaoT = Date.valueOf(dataStrT);
