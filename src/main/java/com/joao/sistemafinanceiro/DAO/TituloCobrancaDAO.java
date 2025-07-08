@@ -45,6 +45,24 @@ public class TituloCobrancaDAO {
         return lstT;
     }
 
+    public List<TituloCobranca> consultarTodos(String numero) {
+        List<TituloCobranca> lstT = new ArrayList<>();
+        ResultSet rs;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM titulo_cobranca WHERE numero_documento = ?");
+            stmt.setString(1, numero);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                lstT.add(consultar(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lstT;
+    }
+
     public TituloCobranca consultar(ResultSet rs) throws SQLException {
         TituloCobranca t = new TituloCobranca();
         DocumentoFiscal d = new DocumentoFiscal();

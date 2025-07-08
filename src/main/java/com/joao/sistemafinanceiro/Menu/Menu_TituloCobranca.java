@@ -16,8 +16,8 @@ public class Menu_TituloCobranca {
             System.out.println("+--------------------------------------+");
             System.out.println("|             MENU TITULOS             |");
             System.out.println("+--------------------------------------+");
-            System.out.printf("| %-36s |\n", "1 - Cadastrar Titulo");
-            System.out.printf("| %-36s |\n", "2 - Listar Titulos");
+            System.out.printf("| %-36s |\n", "1 - Listar por Documento");
+            System.out.printf("| %-36s |\n", "2 - Listar Todos Titulos");
             System.out.printf("| %-36s |\n", "3 - Editar Titulo");
             System.out.printf("| %-36s |\n", "4 - Remover Titulo");
             System.out.printf("| %-36s |\n", "0 - Voltar");
@@ -29,23 +29,10 @@ public class Menu_TituloCobranca {
 
             switch (opcao) {
                 case 1 -> {
-                    TituloCobranca t = new TituloCobranca();
-                    DocumentoFiscal d = new DocumentoFiscal();
+                    System.out.printf("ID: ");
+                    String numero = scanner.nextLine();
 
-                    System.out.printf("Numero do Documento Referente: ");
-                    d.setNumero(scanner.nextLine());
-                    t.setDocumento(d);
-
-                    System.out.printf("Data de vencimento (yyyy-MM-dd): ");
-                    String dataStr = scanner.nextLine();
-                    Date dataEmissao = Date.valueOf(dataStr);
-                    t.setDataVencimento(dataEmissao);
-
-                    System.out.printf("Valor total: ");
-                    t.setValor(scanner.nextDouble());
-                    scanner.nextLine();
-
-                    tService.salvar(t);
+                    tService.consultarTodos(numero);
                 }
                 case 2 -> tService.consultarTodos();
                 case 3 -> {
@@ -74,6 +61,7 @@ public class Menu_TituloCobranca {
                 case 4 -> {
                     System.out.printf("ID: ");
                     int id = scanner.nextInt();
+                    scanner.nextLine();
 
                     tService.excluir(id);
                 }
