@@ -33,7 +33,7 @@ public class Menu_TituloCobranca{
 
 					tService.consultarTodos(numero);
 				}
-				case 2 -> tService.consultarTodos();
+				case 2 -> tService.buscarTodos();
 				case 3 -> {
 					TituloCobranca t = new TituloCobranca();
 					DocumentoFiscal d = new DocumentoFiscal();
@@ -55,7 +55,7 @@ public class Menu_TituloCobranca{
 					t.setValor(scanner.nextDouble());
 					scanner.nextLine();
 
-					tService.atualizar(t);
+					tService.editar(t);
 				}
 				case 4 -> {
 					System.out.printf("ID: ");

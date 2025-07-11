@@ -52,9 +52,9 @@ public class Menu_Parceiro{
 
 					pService.salvar(p);
 				}
-				case 2 -> pService.consultarTodos();
-				case 3 -> pService.consultarTodos("CLIENTE");
-				case 4 -> pService.consultarTodos("FORNECEDOR");
+				case 2 -> pService.buscarTodos();
+				case 3 -> pService.buscarTodos("CLIENTE");
+				case 4 -> pService.buscarTodos("FORNECEDOR");
 				case 5 -> {
 					Parceiro p = new Parceiro();
 
@@ -73,7 +73,7 @@ public class Menu_Parceiro{
 					System.out.printf("Telefone: ");
 					p.setTelefone(scanner.nextLine());
 
-					pService.atualizar(p);
+					pService.editar(p);
 				}
 				case 6 -> {
 					System.out.printf("CNPJ/CPF: ");

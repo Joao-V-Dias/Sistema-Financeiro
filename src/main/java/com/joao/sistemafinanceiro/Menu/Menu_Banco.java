@@ -52,7 +52,7 @@ public class Menu_Banco{
 
 					bService.salvar(b);
 				}
-				case 2 -> bService.consultarTodos();
+				case 2 -> bService.buscarTodos();
 				case 3 -> {
 					Banco b = new Banco();
 
@@ -72,7 +72,7 @@ public class Menu_Banco{
 					b.setSaldo(scanner.nextDouble());
 					scanner.nextLine();
 
-					bService.atualizar(b);
+					bService.editar(b);
 				}
 				case 4 -> {
 					System.out.printf("Agencia: ");

@@ -117,7 +117,7 @@ public class Menu_DocumentoFiscal{
 
 					dService.salvar(d);
 				}
-				case 3 -> dService.consultarDocumentos();
+				case 3 -> dService.buscarTodos();
 				case 4 -> {
 					Parceiro cliente = new Parceiro();
 					Parceiro fornecedor = new Parceiro();
@@ -147,7 +147,7 @@ public class Menu_DocumentoFiscal{
 					d.setValorTotal(scanner.nextDouble());
 					scanner.nextLine();
 
-					dService.atualizar(d);
+					dService.editar(d);
 				}
 				case 5 -> {
 					System.out.printf("Numero: ");
