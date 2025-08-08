@@ -17,7 +17,7 @@ public class MovimentacaoService{
 	}
 
 	public void consultarTodos(){
-		List<Movimentacao> lstM = mDAO.consultarTodos();
+		List<Movimentacao> lstM = mDAO.buscarTodos();
 		System.out.println("+------------------------------------------------------------------------------------------------------------------------------------+");
 		System.out.printf("| %-4s | %-24s | %-8s | %-20s | %-16s | %-20s | %-20s |\n", "ID", "Data Operação", "Tipo", "Banco", "Documento", "Fornecedor", "Cliente", "Fornecedor");
 		System.out.println("+------------------------------------------------------------------------------------------------------------------------------------+");
@@ -41,7 +41,7 @@ public class MovimentacaoService{
 	}
 
 	public void atualizar(Movimentacao m){
-		mDAO.atualizar(m);
+		mDAO.editar(m);
 	}
 
 	public void excluir(int id){
